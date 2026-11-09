@@ -1,0 +1,6 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Your own trading data (config, plans, orders, state) written by the skills
+trader/
