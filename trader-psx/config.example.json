@@ -1,0 +1,26 @@
+{
+  "account_pkr": 500000,
+  "max_loss_per_trade_pkr": 2500,
+  "max_daily_loss_pkr": 7500,
+  "max_trades_per_day": 3,
+  "min_reward_risk": 1.0,
+  "max_position_pct": 50,
+  "cash_buffer_pct": 10,
+  "require_stop": true,
+  "lot_size": 1,
+  "fee_pct_per_side": 0.15,
+  "price_limit_pct": 10,
+  "price_limit_min_pkr": 1,
+  "or_minutes": 15,
+  "last_entry_mins_before_close": 60,
+  "flat_mins_before_close": 5,
+  "min_price_pkr": 5,
+  "min_avg_value_pkr": 10000000,
+  "allow_short": false,
+  "allow_margin": false,
+  "blocked": [],
+  "sessions": {
+    "mon_thu": {"open": "09:30", "close": "15:30", "break": null},
+    "fri": {"open": "09:15", "close": "16:30", "break": ["12:00", "14:10"]}
+  }
+}

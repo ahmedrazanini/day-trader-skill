@@ -73,6 +73,28 @@ or in the `SEC_USER_AGENT` environment variable.
 | `/trader-analyst` | Earnings Analyst | Reads earnings reports and sums up what changed. |
 | `/trader-pelosi` | Pelosi Tracker | Reads Congress's stock-trade disclosures the minute they are filed. |
 
+## PSX edition: `/trader-psx`
+
+The same method on the Pakistan Stock Exchange. Yahoo has no current PSX data
+(its `.KA` charts stopped in July 2024), so `/trader-psx` reads the live feed
+behind SCS Trade's real-time chart page (`chart.scstrade.com`): 5-minute bars
+about two minutes behind, about 84 sessions of intraday history, and every PSX
+symbol. One tool, `trader-psx/psx.py`, covers the whole trade in Karachi time
+and PKR:
+
+```bash
+python3 trader-psx/psx.py daily                       # setups on every liquid PSX stock (~2 minutes)
+python3 trader-psx/psx.py orb --watchlist             # opening-range breakouts so far today
+python3 trader-psx/psx.py run OGDC --target 2R        # plan -> time machine -> size -> check
+```
+
+It knows PSX's hours (Friday's break included), its daily price limits, and
+broker fees, and it checks reward to risk AFTER fees: on a tight PSX stop the
+round trip can cost most of a 1R target. It never places an order: it prints
+a ticket you enter yourself in your broker's app. Copy
+`trader-psx/config.example.json` to `trader/psx/config.json` and set your own
+account size, max loss and your broker's fee rate first.
+
 ## How to use it
 
 Everything lands in a `trader/` folder in your project, and each skill reads
@@ -141,6 +163,7 @@ python3 trader-alerts/alerts.py add --from-plan                        # stop, t
 python3 trader-alerts/alerts.py check                                  # rings what hit, once
 python3 trader-analyst/facts.py TSLA                                   # quarters, growth, EPS
 python3 trader-pelosi/ptr.py index --member pelosi                     # her PTRs this year
+python3 trader-psx/psx.py run OGDC                                     # the PSX edition, one trade end to end
 ```
 
 ```bash
@@ -210,6 +233,7 @@ trader-broker/      SKILL.md, ticket.py, claude_desktop_config.example.json
 trader-alerts/      SKILL.md, alerts.py, alerts.example.json
 trader-analyst/     SKILL.md, facts.py, metrics.example.json
 trader-pelosi/      SKILL.md, ptr.py
+trader-psx/         SKILL.md, psx.py, config.example.json (the PSX edition)
 tests/              unittest suite + offline fixtures
 ```
 
